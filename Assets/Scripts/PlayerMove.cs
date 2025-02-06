@@ -6,25 +6,25 @@ using UnityEngine.SceneManagement;
 
 public class PlayerMove : MonoBehaviour
 {
+    public GameManager gameManager;
     [SerializeField] float moveSpeed = 6f;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public bool canMove=true;
 
     // Update is called once per frame
     void Update()
     {
-        float MoveX = Input.GetAxis("Horizontal")*moveSpeed*Time.deltaTime;
-        transform.Translate(MoveX,0, 0);
+        if (canMove)
+        {
+            float MoveX = Input.GetAxis("Horizontal") * moveSpeed * Time.deltaTime;
+            transform.Translate(MoveX, 0, 0);
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
     {
        if (collision.gameObject.tag=="Ball")
         {
-            ReloadScene();
+            gameManager.LevelLost();
 
         }
     }

@@ -5,10 +5,27 @@ using UnityEngine.SceneManagement;
 
 public class Buttons : MonoBehaviour
 {
+    public int currentSceneIndex;
 
+    void Start()
+    {
+        currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+    }
     public void level()
     {
         SceneManager.LoadScene("Level Select");
+    }
+    public void Retry()
+    {
+        SceneManager.LoadScene(currentSceneIndex);
+    } 
+    public void NextScene()
+    {
+        if (currentSceneIndex > 2 && currentSceneIndex <= 5)
+        {
+            SceneManager.LoadScene(currentSceneIndex + 1);
+        }
+
     }
     public void play()
     {

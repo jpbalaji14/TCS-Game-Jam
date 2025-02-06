@@ -1,14 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Timer : MonoBehaviour
-{
-    [SerializeField] Text timertext;
+{   public GameManager gameManager;
+    [SerializeField] TextMeshProUGUI timertext;
     [SerializeField]float time=50f;
     float currentTime = 0f;
+    public bool isTimerOn = true;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,12 +19,15 @@ public class Timer : MonoBehaviour
 
     private void Update()
     {
-        currentTime -= 1 * Time.deltaTime;
-        timertext.text = currentTime.ToString("0");
-
-        if (currentTime <= 0)
+        if (isTimerOn)
         {
-            SceneManager.LoadScene("Level Select");
+            currentTime -= 1 * Time.deltaTime;
+            timertext.text = currentTime.ToString("0");
+
+            if (currentTime <= 0)
+            {
+                gameManager.LevelLost();
+            }
         }
     }
 
